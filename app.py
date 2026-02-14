@@ -75,6 +75,18 @@ if uploaded_file is not None:
     if missing:
        st.error(f"Missing columns: {missing}")
        st.stop()
+    # Ensure uploaded data matches training columns
+
+    expected_cols = list(preprocessor.feature_names_in_)
+
+    # Reorder columns exactly like training
+    X_test = X_test[expected_cols]
+
+    # Force numeric columns back to numeric
+    for col in X_test.columns:
+    X_test[col] = pd.to_numeric(X_test[col], errors="ignore")
+
+    st.write("Final columns used:", list(X_test.columns))
 
     # Preprocess
     X_test_processed = preprocessor.transform(X_test)
