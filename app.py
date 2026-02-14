@@ -77,16 +77,20 @@ if uploaded_file is not None:
        st.stop()
     # Ensure uploaded data matches training columns
 
+    # Match training schema exactly
     expected_cols = list(preprocessor.feature_names_in_)
-
-    # Reorder columns exactly like training
     X_test = X_test[expected_cols]
 
-    # Force numeric columns back to numeric
-    for col in X_test.columns:
-        X_test[col] = pd.to_numeric(X_test[col], errors="ignore")
+    numeric_cols = [
+    "age", "balance", "day", "duration",
+    "campaign", "pdays", "previous"
+    ]
 
-        st.write("Final columns used:", list(X_test.columns))
+    for col in numeric_cols:
+       X_test[col] = pd.to_numeric(X_test[col], errors="coerce")
+
+    st.write("Data types after fix:")
+    st.write(X_test.dtypes)
 
     # Preprocess
     X_test_processed = preprocessor.transform(X_test)
