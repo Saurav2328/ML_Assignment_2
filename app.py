@@ -30,7 +30,6 @@ def load_assets():
     }
     return preprocessor, models
 
-
 preprocessor, models = load_assets()
 
 # ----------------------------
@@ -63,7 +62,19 @@ if uploaded_file is not None:
     # Select Model
     # ----------------------------
     st.subheader("2️⃣ Select Model")
-    selected_model_name = st.selectbox("Choose a classifier model:", list(models.keys()))
+
+    model_options = ["Select a model"] + list(models.keys())
+
+    selected_model_name = st.selectbox(
+    "Choose a classifier model:",
+    model_options,
+    index=0
+    )
+
+    if selected_model_name == "Select a model":
+       st.warning("Please choose a model to continue.")
+       st.stop()
+
     model = models[selected_model_name]
 
     # ----------------------------
@@ -78,9 +89,22 @@ if uploaded_file is not None:
     # Ensure uploaded data matches training columns
 
     # Match training schema exactly
-    expected_cols = list(preprocessor.feature_names_in_)
-    X_test = X_test[expected_cols]
+    # Expected columns from training dataset
+    expected_cols = [
+       "age","job","marital","education","default","balance",
+       "housing","loan","contact","day","month","duration",
+       "campaign","pdays","previous","poutcome"
+    ]
 
+    missing = set(expected_cols) - set(X_test.columns)
+    if missing:
+       st.error(f"Missing columns: {missing}")
+       st.stop()
+
+   # Reorder columns exactly
+   X_test = X_test[expected_cols]
+
+   # Force numeric columns
     numeric_cols = [
     "age", "balance", "day", "duration",
     "campaign", "pdays", "previous"
@@ -94,7 +118,6 @@ if uploaded_file is not None:
 
     # Preprocess
     X_test_processed = preprocessor.transform(X_test)
-
 
     # Naive Bayes requires dense array
     if selected_model_name == "Naive Bayes":
@@ -153,4 +176,3 @@ if uploaded_file is not None:
         file_name="predictions_output.csv",
         mime="text/csv"
     )
-
