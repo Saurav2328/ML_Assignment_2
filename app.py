@@ -37,7 +37,7 @@ preprocessor, models = load_assets()
 # ----------------------------
 st.subheader("1️⃣ Upload CSV Test Data")
 
-uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
+uploaded_file = st.file_uploader("Upload a CSV file from model/test_sample_bank from repository", type=["csv"])
 
 st.info("✅ Your uploaded CSV must contain the **same feature columns** as training data, and also the target column named **y** (yes/no or 0/1).")
 
