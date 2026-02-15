@@ -18,7 +18,7 @@ The objective of this project is to build and compare multiple Machine Learning 
 
 | ML Model | Accuracy | AUC | Precision | Recall | F1 | MCC |
 |---------|----------|-----|----------|--------|----|-----|
-| Logistic Regression |  |  |  |  |  |  |
+| Logistic Regression |0.9012|0.9056|0.6445|0.3478|0.4518|0.4261|
 | Decision Tree |  |  |  |  |  |  |
 | KNN |  |  |  |  |  |  |
 | Naive Bayes |  |  |  |  |  |  |
