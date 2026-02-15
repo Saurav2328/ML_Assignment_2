@@ -94,15 +94,15 @@ if uploaded_file is not None:
        "age","job","marital","education","default","balance",
        "housing","loan","contact","day","month","duration",
        "campaign","pdays","previous","poutcome"
-    ]
+     ]
 
     missing = set(expected_cols) - set(X_test.columns)
     if missing:
        st.error(f"Missing columns: {missing}")
        st.stop()
 
-   # Reorder columns exactly
-   X_test = X_test[expected_cols]
+    # Reorder columns exactly
+     X_test = X_test[expected_cols]
 
    # Force numeric columns
     numeric_cols = [
