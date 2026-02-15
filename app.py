@@ -102,13 +102,13 @@ if uploaded_file is not None:
        st.stop()
 
     # Reorder columns exactly
-     X_test = X_test[expected_cols]
+      X_test = X_test[expected_cols]
 
-   # Force numeric columns
-    numeric_cols = [
-    "age", "balance", "day", "duration",
-    "campaign", "pdays", "previous"
-    ]
+    # Force numeric columns
+     numeric_cols = [
+     "age", "balance", "day", "duration",
+     "campaign", "pdays", "previous"
+     ]
 
     for col in numeric_cols:
         X_test[col] = pd.to_numeric(X_test[col], errors="coerce")
